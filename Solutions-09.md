@@ -19,3 +19,18 @@
 **The new group's permissions:**
 
 ![The new group's permissions.](Exercise-1-4-The-New-Group-Permissions.jpg)
+
+## Exercise 2
+
+**To configure AWS CLI I used these commands:**
+
+```bash
+aws configure
+AWS Access Key ID [****]: MY_ACCESS_KEY
+AWS Secret Access Key [****]: MY_SECRET_ACCESS_KEY
+Default region name [eu-north-1]: ENTER
+Default output format [json]: ENTER
+
+# To test the connection.
+aws s3 ls
+```
