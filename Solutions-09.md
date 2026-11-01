@@ -90,3 +90,15 @@ aws ec2 run-instances --image-id ami-021aaf3749be66813 --count 1 --instance-type
 **The new EC2 instance:**
 
 ![The new ec2 instance.](Exercise-4-1-The-New-EC2-Instance.jpg)
+
+## Exercise 5
+
+```bash
+ssh -i ~/.ssh/TwnDevOpsExercise9.pem ubuntu@MY_EC2_IP_ADDRESS
+
+sudo apt update
+sudo apt install docker.io
+
+sudo usermod -aG docker ubuntu
+docker --version
+```
