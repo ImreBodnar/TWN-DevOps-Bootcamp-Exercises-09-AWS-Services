@@ -77,3 +77,16 @@ aws ec2 authorize-security-group-ingress --group-id sg-0f9a9c47a4d834139 --proto
 **The new Security Group:**
 
 ![The new security group.](Exercise-3-5-The-New-Security-Group.jpg)
+
+## Exercise 4
+
+```bash
+aws ec2 create-key-pair --key-name TwnDevOpsExercise9 --query 'KeyMaterial' --output text > TwnDevOpsExercise9.pem
+chmod 400 TwnDevOpsExercise9.pem
+
+aws ec2 run-instances --image-id ami-021aaf3749be66813 --count 1 --instance-type t3.micro --key-name TwnDevOpsExercise9 --security-group-ids sg-0f9a9c47a4d834139 --subnet-id subnet-0e2ce8a0bd58161d9 --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=Ec2TwnDevOpsExercises9}]' --associate-public-ip-address
+```
+
+**The new EC2 instance:**
+
+![The new ec2 instance.](Exercise-4-1-The-New-EC2-Instance.jpg)
