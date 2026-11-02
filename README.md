@@ -1,3 +1,3 @@
-#### This project is for the DevOps bootcamp exercise for
+#### This project is for the DevOps Bootcamp exercise for
 
 #### "AWS Services"
