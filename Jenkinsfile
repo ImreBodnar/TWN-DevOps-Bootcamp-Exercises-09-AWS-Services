@@ -20,7 +20,7 @@ pipeline {
                     echo "----- INCREMENTING VERSION -----"
 
                     dir("app") {
-                        IncrementVersion()
+                        incrementVersion()
                     }
                 }
             }
@@ -32,7 +32,7 @@ pipeline {
                     echo "----- RUNNING TESTS -----"
 
                     dir("app") {
-                        RunNpmTests()
+                        runNpmTests()
                     }
                 }
             }
@@ -43,7 +43,7 @@ pipeline {
                 script {
                     echo "----- BUILDING DOCKER IMAGE -----"
 
-                    BuildDockerImage()
+                    buildDockerImage('nodejs-app-for-aws')
                 }
             }
         }
@@ -53,7 +53,7 @@ pipeline {
                 script {
                     echo "----- PUSHING DOCKER IMAGE TO NEXUS -----"
 
-                    PushDockerImageToRegistry()
+                    pushDockerImageToRegistry('nodejs-app-for-aws')
                 }
             }
         }
@@ -63,7 +63,7 @@ pipeline {
                 script {
                     echo "----- COMMITING & PUSHING NEW VERSION TO GIT -----"
 
-                    CommitNewVersion()
+                    commitNewVersion('TWN-DevOps-Bootcamp-Exercises-09-AWS-Services.git')
                 }
             }
         }
