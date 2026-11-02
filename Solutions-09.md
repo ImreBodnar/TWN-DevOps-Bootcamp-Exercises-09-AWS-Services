@@ -93,6 +93,8 @@ aws ec2 run-instances --image-id ami-021aaf3749be66813 --count 1 --instance-type
 
 ## Exercise 5
 
+**These are the steps I used to log in to my new EC2 instance:**
+
 ```bash
 ssh -i ~/.ssh/TwnDevOpsExercise9.pem ubuntu@MY_EC2_IP_ADDRESS
 
@@ -101,4 +103,23 @@ sudo apt install docker.io
 
 sudo usermod -aG docker ubuntu
 docker --version
+```
+
+## Exercise 6
+
+> Important!
+> I cloned the example repository, and copied the files and folder into this project.
+> I also added the Dockerfile and the Jenkinsfile from the previous project to this one.
+
+```yaml
+version: "3.9"
+name: twn-dc
+
+services:
+
+  my-nodejs-app:
+    image: 161.35.197.245:8082/nodejs-app-for-aws:1.1.0
+    container_name: twn-nodejs-app-for-aws
+    ports:
+      - 3000:3000
 ```
