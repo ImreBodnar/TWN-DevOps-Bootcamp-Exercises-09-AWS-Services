@@ -111,6 +111,8 @@ docker --version
 > I cloned the example repository, and copied the files and folder into this project.
 > I also added the Dockerfile and the Jenkinsfile from the previous project to this one.
 
+**This is the content of the docker-compose.yaml file:**
+
 ```yaml
 version: "3.9"
 name: twn-dc
@@ -118,8 +120,80 @@ name: twn-dc
 services:
 
   my-nodejs-app:
-    image: 161.35.197.245:8082/nodejs-app-for-aws:1.1.0
+    image: ${IMAGE_NAME}
     container_name: twn-nodejs-app-for-aws
     ports:
       - 3000:3000
 ```
+
+## Exercise 7
+
+**At first I had to install Docker Compose in the EC2 instance:**
+
+```bash
+ssh -i ~/.ssh/TwnDevOpsExercise9.pem ubuntu@MY_EC2_IP_ADDRESS
+
+sudo apt update
+sudo apt install docker-compose-v2
+docker compose version
+```
+
+**After that I created the /etc/docker/daemon.json file with the neccessary content:**
+
+```json
+{
+  "insecure-registries": ["NEXUS_ADDRESS:8082"]
+}
+```
+
+**And I restarted Docker and logged in to Nexus:**
+
+```bash
+sudo systemctl restart docker
+
+docker login -u NEXUS_USER NEXUS_ADDRESS:8082
+```
+
+**The new deploy stage in Jenkinsfile:**
+
+```groovy
+stage("DeployToEC2") {
+    steps {
+        script {
+            echo "----- DEPLOYING TO AWS EC2 INSTANCE -----"
+
+            env.IMAGE_NAME = "${NEXUS_ADDRESS}/${APP_NAME}:${NEW_VERSION}"
+            echo "FULL IMAGE NAME: ${IMAGE_NAME}"
+
+            sshagent(['twn-exercise-9']) {
+                def ec2Instance = "ubuntu@MY_EC2_IP_ADDRESS"
+                def shellCommand = "bash ./run-docker-compose.sh ${IMAGE_NAME}"
+
+                sh "scp -o StrictHostKeyChecking=no run-docker-compose.sh ${ec2Instance}:/home/ubuntu"
+                sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${ec2Instance}:/home/ubuntu"
+                sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} ${shellCommand}"
+            }
+        }
+    }
+}
+```
+
+**The content of run-docker-compose.sh:**
+
+```bash
+#!/user/bin/bash
+
+export IMAGE_NAME=$1
+
+docker compose -f docker-compose.yaml up -d
+
+echo "--- DOCKER COMPOSE STARTED ---"
+```
+
+**The successful pipeline run with deployment in Jenkinsfile:**
+
+![The successful jenkins run.](Exercise-7-1-The-Successful-Run-With-Deploy.jpg)
+
+**The docker compose successfully started on my EC2 instance:**
+
+![The successful docker compose run.](Exercise-7-2-The-Successful-Docker-Compose-Run-EC2.jpg)

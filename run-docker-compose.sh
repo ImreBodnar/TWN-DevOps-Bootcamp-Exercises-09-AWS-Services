@@ -1,4 +1,4 @@
-
+#!/user/bin/bash
 
 export IMAGE_NAME=$1
 
