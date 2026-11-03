@@ -74,15 +74,16 @@ pipeline {
                 script {
                     echo "----- DEPLOYING TO AWS EC2 INSTANCE -----"
 
-                    env.IMAGE_NAME = "{$NEXUS_ADDRESS}/{$APP_NAME}:{$NEW_VERSION}"
+                    env.IMAGE_NAME = "${NEXUS_ADDRESS}/${APP_NAME}:${NEW_VERSION}"
+                    echo "FULL IMAGE NAME: ${IMAGE_NAME}"
 
                     sshagent(['twn-exercise-9']) {
                         def ec2Instance = "ubuntu@16.171.231.89"
-                        def shellCommand = "bash ./run-docker-compose.sh {$IMAGE_NAME}"
+                        def shellCommand = "bash ./run-docker-compose.sh ${IMAGE_NAME}"
 
-                        sh "scp -o StrictHostKeyChecking=no run-docker-compose.sh {$ec2Instance}:/home/ubuntu"
-                        sh "scp -o StrictHostKeyChecking=no docker-compose.yaml {$ec2Instance}:/home/ubuntu"
-                        sh "ssh -o StrictHostKeyChecking=no {$ec2Instance} {$shellCommand}"
+                        sh "scp -o StrictHostKeyChecking=no run-docker-compose.sh ${ec2Instance}:/home/ubuntu"
+                        sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${ec2Instance}:/home/ubuntu"
+                        sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} ${shellCommand}"
                     }
                 }
             }
