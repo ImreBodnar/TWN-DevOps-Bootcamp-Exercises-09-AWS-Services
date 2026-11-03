@@ -44,7 +44,7 @@ pipeline {
                 script {
                     echo "----- BUILDING DOCKER IMAGE -----"
 
-                    buildDockerImage($APP_NAME)
+                    buildDockerImage(APP_NAME)
                 }
             }
         }
@@ -54,7 +54,7 @@ pipeline {
                 script {
                     echo "----- PUSHING DOCKER IMAGE TO NEXUS -----"
 
-                    pushDockerImageToRegistry($APP_NAME)
+                    pushDockerImageToRegistry(APP_NAME)
                 }
             }
         }
