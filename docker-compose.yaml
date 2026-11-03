@@ -4,7 +4,7 @@ name: twn-dc
 services:
 
   my-nodejs-app:
-    image: 161.35.197.245:8082/nodejs-app-for-aws:1.1.0
+    image: ${IMAGE_NAME}
     container_name: twn-nodejs-app-for-aws
     ports:
       - 3000:3000

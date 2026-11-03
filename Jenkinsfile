@@ -11,6 +11,7 @@ pipeline {
 
     environment {
         NEXUS_ADDRESS = "161.35.197.245:8082"
+        APP_NAME = "nodejs-app-for-aws"
     }
 
     stages {
@@ -64,6 +65,25 @@ pipeline {
                     echo "----- COMMITING & PUSHING NEW VERSION TO GIT -----"
 
                     commitNewVersion('TWN-DevOps-Bootcamp-Exercises-09-AWS-Services.git')
+                }
+            }
+        }
+
+        stage("DeployToEC2") {
+            steps {
+                script {
+                    echo "----- DEPLOYING TO AWS EC2 INSTANCE -----"
+
+                    env.IMAGE_NAME = "{$NEXUS_ADDRESS}/{$APP_NAME}:{$NEW_VERSION}"
+
+                    sshagent(['twn-exercise-9']) {
+                        def ec2Instance = "ubuntu@16.171.231.89"
+                        def shellCommand = "bash ./run-docker-compose.sh {$IMAGE_NAME}"
+
+                        sh "scp -o StrictHostKeyChecking=no run-docker-compose.sh {$ec2Instance}:/home/ubuntu"
+                        sh "scp -o StrictHostKeyChecking=no docker-compose.yaml {$ec2Instance}:/home/ubuntu"
+                        sh "ssh -o StrictHostKeyChecking=no {$ec2Instance} {$shellCommand}"
+                    }
                 }
             }
         }
