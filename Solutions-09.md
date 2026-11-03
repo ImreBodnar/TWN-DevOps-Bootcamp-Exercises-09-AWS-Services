@@ -197,3 +197,15 @@ echo "--- DOCKER COMPOSE STARTED ---"
 **The docker compose successfully started on my EC2 instance:**
 
 ![The successful docker compose run.](Exercise-7-2-The-Successful-Docker-Compose-Run-EC2.jpg)
+
+## Exercise 8
+
+**I used this command to open a port for the NodeJS app:**
+
+```bash
+aws ec2 authorize-security-group-ingress --group-id MY_SG_ID --protocol tcp --port 3000 --cidr 0.0.0.0/0
+```
+
+**The app is accessible in the browser after the port is opened:**
+
+![The app is accessible in the browser.](Exercise-8-1-The-App-In-The-Browser.jpg)
