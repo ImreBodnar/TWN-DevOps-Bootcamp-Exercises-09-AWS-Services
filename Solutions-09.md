@@ -212,5 +212,5 @@ aws ec2 authorize-security-group-ingress --group-id MY_SG_ID --protocol tcp --po
 
 ## Exercise 9
 
-**I redo the pipeline as a Multibranch pipeline.**
+**I created a new pipeline as a Multibranch pipeline, and I disabled the original one (which was a normal Pipeline).**
 **TEST**
