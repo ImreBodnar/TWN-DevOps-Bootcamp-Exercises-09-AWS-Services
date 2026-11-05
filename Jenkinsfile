@@ -12,10 +12,15 @@ pipeline {
     environment {
         NEXUS_ADDRESS = "161.35.197.245:8082"
         APP_NAME = "nodejs-app-for-aws"
+        MAIN_BRANCH_NAME = "main"
     }
 
     stages {
         stage("IncrementVersion") {
+             when {
+                branch MAIN_BRANCH_NAME
+            }
+
             steps {
                 script {
                     echo "----- INCREMENTING VERSION -----"
@@ -40,6 +45,10 @@ pipeline {
         }
 
         stage("BuildImage") {
+             when {
+                branch MAIN_BRANCH_NAME
+            }
+
             steps {
                 script {
                     echo "----- BUILDING DOCKER IMAGE -----"
@@ -50,6 +59,10 @@ pipeline {
         }
 
         stage("PushImageToRegistry") {
+             when {
+                branch MAIN_BRANCH_NAME
+            }
+
             steps {
                 script {
                     echo "----- PUSHING DOCKER IMAGE TO NEXUS -----"
@@ -60,6 +73,10 @@ pipeline {
         }
 
         stage("CommitNewVersion") {
+             when {
+                branch MAIN_BRANCH_NAME
+            }
+
             steps {
                 script {
                     echo "----- COMMITING & PUSHING NEW VERSION TO GIT -----"
@@ -70,6 +87,10 @@ pipeline {
         }
 
         stage("DeployToEC2") {
+             when {
+                branch MAIN_BRANCH_NAME
+            }
+
             steps {
                 script {
                     echo "----- DEPLOYING TO AWS EC2 INSTANCE -----"
