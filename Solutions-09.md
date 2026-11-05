@@ -212,5 +212,22 @@ aws ec2 authorize-security-group-ingress --group-id MY_SG_ID --protocol tcp --po
 
 ## Exercise 9
 
-**I redo the pipeline as a Multibranch pipeline.**
-**TEST**
+**I created a new pipeline as a Multibranch pipeline, and I disabled the original one (which was a normal Pipeline).**
+
+![The new multibranch pipeline.](Exercise-9-1-The-New-Multibranch-Pipeline.jpg)
+
+**I added a webhook in GitHub on the Branch/Settings/Webhooks page:**
+
+![The new webhook in github.](Exercise-9-4-The-Webhook-In-Github-For-Pipeline.jpg)
+
+**Some of the multibranch pipeline settings:**
+
+![The scan repository triggers setting.](Exercise-9-5-Settings-Scan-Repository-Triggers.jpg)
+
+![The build strategy setting.](Exercise-9-6-Settings-Build-Strategies-Ignore-Commiter-Strategy.jpg)
+
+**Some runs of the 2 branches:**
+
+![The main branch runs.](Exercise-9-2-Some-Runs-Of-Main-Branch.jpg)
+
+![The testing branch runs.](Exercise-9-3-The-Only-One-Run-Of-Testing-Branch.jpg)
