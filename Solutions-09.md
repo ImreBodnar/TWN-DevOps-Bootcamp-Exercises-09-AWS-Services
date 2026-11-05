@@ -212,4 +212,5 @@ aws ec2 authorize-security-group-ingress --group-id MY_SG_ID --protocol tcp --po
 
 ## Exercise 9
 
-**On the pipeline/Configure/General page in the Triggers section I checked the "GitHub hook trigger for GITScm polling" options. xxxxxxxxxxxxxxxxx**
+**On the pipeline/Configure/General page in the Triggers section I checked the "GitHub hook trigger for GITScm polling" options.**
+**On the same page in the "Pipeline" section in the "Additional behaviours" I chosed "Polling ignores commits from certain users" option and added "JenkisCI" username to the "Excluded users" textarea.**
