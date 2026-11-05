@@ -86,6 +86,10 @@ pipeline {
         }
 
         stage("DeployToEC2") {
+             when {
+                branch 'main'
+            }
+
             steps {
                 script {
                     echo "----- DEPLOYING TO AWS EC2 INSTANCE -----"
