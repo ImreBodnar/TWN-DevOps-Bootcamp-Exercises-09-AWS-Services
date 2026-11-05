@@ -12,12 +12,13 @@ pipeline {
     environment {
         NEXUS_ADDRESS = "161.35.197.245:8082"
         APP_NAME = "nodejs-app-for-aws"
+        MAIN_BRANCH_NAME = "main"
     }
 
     stages {
         stage("IncrementVersion") {
              when {
-                branch 'main'
+                branch MAIN_BRANCH_NAME
             }
 
             steps {
