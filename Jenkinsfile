@@ -46,7 +46,7 @@ pipeline {
 
         stage("BuildImage") {
              when {
-                branch 'main'
+                branch MAIN_BRANCH_NAME
             }
 
             steps {
@@ -60,7 +60,7 @@ pipeline {
 
         stage("PushImageToRegistry") {
              when {
-                branch 'main'
+                branch MAIN_BRANCH_NAME
             }
 
             steps {
@@ -74,7 +74,7 @@ pipeline {
 
         stage("CommitNewVersion") {
              when {
-                branch 'main'
+                branch MAIN_BRANCH_NAME
             }
 
             steps {
@@ -88,7 +88,7 @@ pipeline {
 
         stage("DeployToEC2") {
              when {
-                branch 'main'
+                branch MAIN_BRANCH_NAME
             }
 
             steps {
