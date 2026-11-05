@@ -16,6 +16,10 @@ pipeline {
 
     stages {
         stage("IncrementVersion") {
+             when {
+                branch 'main'
+            }
+
             steps {
                 script {
                     echo "----- INCREMENTING VERSION -----"
@@ -40,6 +44,10 @@ pipeline {
         }
 
         stage("BuildImage") {
+             when {
+                branch 'main'
+            }
+
             steps {
                 script {
                     echo "----- BUILDING DOCKER IMAGE -----"
@@ -50,6 +58,10 @@ pipeline {
         }
 
         stage("PushImageToRegistry") {
+             when {
+                branch 'main'
+            }
+
             steps {
                 script {
                     echo "----- PUSHING DOCKER IMAGE TO NEXUS -----"
@@ -60,6 +72,10 @@ pipeline {
         }
 
         stage("CommitNewVersion") {
+             when {
+                branch 'main'
+            }
+
             steps {
                 script {
                     echo "----- COMMITING & PUSHING NEW VERSION TO GIT -----"
