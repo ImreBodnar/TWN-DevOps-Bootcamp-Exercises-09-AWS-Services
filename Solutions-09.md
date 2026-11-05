@@ -231,3 +231,98 @@ aws ec2 authorize-security-group-ingress --group-id MY_SG_ID --protocol tcp --po
 ![The main branch runs.](Exercise-9-2-Some-Runs-Of-Main-Branch.jpg)
 
 ![The testing branch runs.](Exercise-9-3-The-Only-One-Run-Of-Testing-Branch.jpg)
+
+**This is the updated Jenkinsfile (short version):**
+
+```groovy
+#!/user/bin/env groovy
+
+pipeline {
+    agent any
+
+    tools {
+        nodejs "my-nodejs"
+    }
+
+    environment {
+        ...
+        MAIN_BRANCH_NAME = "main"
+    }
+
+    stages {
+        stage("IncrementVersion") {
+             when {
+                branch MAIN_BRANCH_NAME
+            }
+
+            steps {
+                script {
+                    echo "----- INCREMENTING VERSION -----"
+                    //Doing operations...
+                }
+            }
+        }
+
+        stage("RunTests") {
+            steps {
+                script {
+                    echo "----- RUNNING TESTS -----"
+                    //Doing operations...
+                }
+            }
+        }
+
+        stage("BuildImage") {
+             when {
+                branch MAIN_BRANCH_NAME
+            }
+
+            steps {
+                script {
+                    echo "----- BUILDING DOCKER IMAGE -----"
+                    //Doing operations...
+                }
+            }
+        }
+
+        stage("PushImageToRegistry") {
+             when {
+                branch MAIN_BRANCH_NAME
+            }
+
+            steps {
+                script {
+                    echo "----- PUSHING DOCKER IMAGE TO NEXUS -----"
+                    //Doing operations...
+                }
+            }
+        }
+
+        stage("CommitNewVersion") {
+             when {
+                branch MAIN_BRANCH_NAME
+            }
+
+            steps {
+                script {
+                    echo "----- COMMITING & PUSHING NEW VERSION TO GIT -----"
+                    //Doing operations...
+                }
+            }
+        }
+
+        stage("DeployToEC2") {
+             when {
+                branch MAIN_BRANCH_NAME
+            }
+
+            steps {
+                script {
+                    echo "----- DEPLOYING TO AWS EC2 INSTANCE -----"
+                    //Doing operations...
+                }
+            }
+        }
+    }
+}
+```
