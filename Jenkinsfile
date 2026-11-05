@@ -64,7 +64,7 @@ pipeline {
                 script {
                     echo "----- COMMITING & PUSHING NEW VERSION TO GIT -----"
 
-                    commitNewVersion('TWN-DevOps-Bootcamp-Exercises-09-AWS-Services.git')
+                    commitNewVersionMultiBranch('TWN-DevOps-Bootcamp-Exercises-09-AWS-Services.git')
                 }
             }
         }
