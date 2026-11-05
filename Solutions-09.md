@@ -212,4 +212,4 @@ aws ec2 authorize-security-group-ingress --group-id MY_SG_ID --protocol tcp --po
 
 ## Exercise 9
 
-**On the pipeline/Configure/General page in the Triggers section I checked the "GitHub hook trigger for GITScm polling" options.**
+**On the pipeline/Configure/General page in the Triggers section I checked the "GitHub hook trigger for GITScm polling" options. xxxxxxxxxxxxxxxxx**
